@@ -1,7 +1,7 @@
 import Document, { Head, Main, NextScript } from "next/document";
 // Import styled components ServerStyleSheet
 import { ServerStyleSheet } from "styled-components";
-
+import { MainContainer, Header, SideMenu } from "components/common";
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
     // Step 1: Create an instance of ServerStyleSheet
@@ -24,6 +24,15 @@ export default class MyDocument extends Document {
       <html>
         <Head>
           <title>My page</title>
+          <style>
+            {`html, body {
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              margin: 0;
+            }
+            `}
+          </style>
           {/* Step 5: Output the styles in the head  */}
           {this.props.styleTags}
         </Head>

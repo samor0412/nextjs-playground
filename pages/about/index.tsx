@@ -6,10 +6,10 @@ export default function Home() {
   return (
     <MainContainer>
       <Head>
-        <title>Home</title>
+        <title>About</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <>Home</>
+      <>About</>
     </MainContainer>
   );
 }

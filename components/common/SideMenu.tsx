@@ -1,13 +1,21 @@
 import { blue, grey, paleBlue, pink } from "constants/colors";
 import React, { Ref, RefObject, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
-import Link from "next/link";
 import Button from "components/common/Button";
+
+interface NavItemProps {
+  href: string;
+}
 
 const Container = styled.div`
   position: relative;
   display: flex;
   align-items: stretch;
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 const Menu = styled.div<{ ref: RefObject<HTMLDivElement> }>`
@@ -23,7 +31,7 @@ const Nav = styled.div`
   max-width: 200px;
 `;
 
-const NavItem = styled.div`
+const StyledNavItem = styled.div`
   background-color: ${blue};
   color: #fff;
   padding: 6px 12px;
@@ -46,6 +54,21 @@ const NavItem = styled.div`
     height: 100%;
     text-decoration: none;
     color: inherit;
+  }
+`;
+
+const A = styled.a<{ pathname: string }>`
+  ${({ href, pathname }) =>
+    href === pathname ? `display: block !important;` : ""}
+`;
+
+const Expandable = styled.div`
+  > a:not(:first-child) {
+    display: none;
+  }
+
+  :hover > a:not(:first-child) {
+    display: block;
   }
 `;
 
@@ -73,6 +96,15 @@ const ArrowIcon = styled.div<{ isMenuOpen: boolean }>`
       ? `transform: rotate(-135deg);left: 2.5px;`
       : `transform: rotate(45deg);right: 2.5px;`};
 `;
+const NavItem: React.FC<NavItemProps> = ({ href, children }) => {
+  const { pathname } = useRouter();
+
+  return (
+    <A href={href} pathname={pathname}>
+      <StyledNavItem>{children}</StyledNavItem>
+    </A>
+  );
+};
 
 const SideMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
@@ -88,12 +120,15 @@ const SideMenu = () => {
     <Container>
       <Menu ref={menuRef}>
         <Nav>
-          <Link href="/">
-            <NavItem>Home</NavItem>
-          </Link>
-          <Link href="/static-page-generation">
-            <NavItem>Static Page Generation</NavItem>
-          </Link>
+          {/* use <a> tag instead of <Link> tag because sw service worker cache api can't handle routing */}
+          <NavItem href="/">Home</NavItem>
+          <NavItem href="/static-page-generation">
+            Static Page Generation
+          </NavItem>
+          <Expandable>
+            <NavItem href="/service-worker">Service Worker</NavItem>
+            <NavItem href="/service-worker/fetch-api">Fetch Api</NavItem>
+          </Expandable>
         </Nav>
       </Menu>
       <ToogleButton onClick={toogleMenu}>

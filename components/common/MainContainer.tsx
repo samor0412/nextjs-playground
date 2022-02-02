@@ -1,5 +1,5 @@
 import { blue, paleBlue } from "constants/colors";
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Header, SideMenu } from ".";
 
@@ -18,6 +18,24 @@ const Container = styled.div`
 `;
 
 const MainContainer: React.FC = ({ children }) => {
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("/sw.js").then(
+          function (registration) {
+            console.log(
+              "Service Worker registration successful with scope: ",
+              registration.scope
+            );
+          },
+          function (err) {
+            console.log("Service Worker registration failed: ", err);
+          }
+        );
+      });
+    }
+  }, []);
+
   return (
     <FullPageContainer>
       <Header />

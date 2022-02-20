@@ -1,7 +1,6 @@
 import { MainContainer } from "components/common";
 import { PageContainer } from "styles";
 import Head from "next/head";
-import styled from "styled-components";
 
 export default function Home() {
   return (

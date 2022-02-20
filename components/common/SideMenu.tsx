@@ -125,6 +125,7 @@ const SideMenu = () => {
           <NavItem href="/static-page-generation">
             Static Page Generation
           </NavItem>
+          <NavItem href="/dynamic-import">Dynamic Import</NavItem>
           <Expandable>
             <NavItem href="/service-worker">Service Worker</NavItem>
             <NavItem href="/service-worker/fetch-api">Fetch Api</NavItem>

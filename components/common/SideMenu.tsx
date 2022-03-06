@@ -63,12 +63,17 @@ const A = styled.a<{ pathname: string }>`
 `;
 
 const Expandable = styled.div`
-  > a:not(:first-child) {
+  /* > a:not(:first-child) {
     display: none;
   }
 
   :hover > a:not(:first-child) {
     display: block;
+  } */
+
+  > a:not(:first-child) {
+    display: block;
+    margin-left: 20px;
   }
 `;
 
@@ -122,14 +127,15 @@ const SideMenu = () => {
         <Nav>
           {/* use <a> tag instead of <Link> tag because sw service worker cache api can't handle routing */}
           <NavItem href="/">Home</NavItem>
-          <NavItem href="/static-page-generation">
+          <NavItem href="/static_page_generation">
             Static Page Generation
           </NavItem>
-          <NavItem href="/dynamic-import">Dynamic Import</NavItem>
+          <NavItem href="/dynamic_import">Dynamic Import</NavItem>
           <Expandable>
-            <NavItem href="/service-worker">Service Worker</NavItem>
-            <NavItem href="/service-worker/fetch-api">Fetch Api</NavItem>
+            <NavItem href="/service_worker">Service Worker</NavItem>
+            <NavItem href="/service_worker/fetch_api">Fetch Api</NavItem>
           </Expandable>
+          <NavItem href="/code_generator">Code Generator</NavItem>
         </Nav>
       </Menu>
       <ToogleButton onClick={toogleMenu}>

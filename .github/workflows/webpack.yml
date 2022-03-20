@@ -22,17 +22,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Build & Deploy
-        env:
-          INFINITY_FREE_FTP_USER_NAME: ${{ secrets.INFINITY_FREE_FTP_USER_NAME }}
-          INFINITY_FREE_FTP_PW: ${{ secrets.INFINITY_FREE_FTP_PW }}
-          INFINITY_FREE_HOST: ${{ secrets.INFINITY_FREE_HOST }}
+      - name: Build
         run: |
           yarn
           yarn add -D webpack-cli
           yarn build:export
-          mkdir htdocs/
-          cp -r ./out/* htdocs/
 
       - name: FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
@@ -43,8 +37,3 @@ jobs:
           protocol: ftps
           local-dir: ./out/
           server-dir: ./htdocs/
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/out/**
-            **/.next/**

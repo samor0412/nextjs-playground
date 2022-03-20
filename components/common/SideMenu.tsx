@@ -137,6 +137,7 @@ const SideMenu = () => {
             <NavItem href="/service_worker/fetch_api">Fetch Api</NavItem>
           </Expandable>
           <NavItem href="/code_generator">Code Generator</NavItem>
+          <NavItem href="/github_action">Git Action</NavItem>
         </Nav>
       </Menu>
       <ToogleButton onClick={toogleMenu}>

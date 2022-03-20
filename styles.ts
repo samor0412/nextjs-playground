@@ -21,7 +21,7 @@ export const Tag1 = styled.b`
 `;
 
 export const StyledCode = styled.code`
-  padding: 20px 40px;
+  padding: 8px 20px;
   display: block;
   background-color: #efefef;
   white-space: pre-wrap;

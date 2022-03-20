@@ -4,7 +4,7 @@ import styled from "styled-components";
 import dynamic from "next/dynamic";
 import { PageContainer, YellowNote, Tag1 } from "styles";
 import { useEffect, useState } from "react";
-import { StyledCode } from "pages/styles";
+import { StyledCode } from "styles";
 interface Props {}
 
 const DynamicComponent = dynamic(() => import("./DynamicContent"), {

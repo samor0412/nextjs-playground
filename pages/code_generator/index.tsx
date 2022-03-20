@@ -1,7 +1,7 @@
 import { MainContainer } from "components/common";
 import Head from "next/head";
 import { PageContainer } from "styles";
-import { StyledCode } from "pages/styles";
+import { StyledCode } from "styles";
 import Reference from "components/common/Reference";
 
 interface Props {}

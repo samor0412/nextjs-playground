@@ -1,6 +1,7 @@
 import { blue, grey, paleBlue, pink } from "constants/colors";
 import React, { Ref, RefObject, useRef, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import styled from "styled-components";
 import Button from "components/common/Button";
 
@@ -57,7 +58,7 @@ const StyledNavItem = styled.div`
   }
 `;
 
-const A = styled.a<{ pathname: string }>`
+const A = styled(Link)<{ href: string; pathname: string }>`
   ${({ href, pathname }) =>
     href === pathname ? `display: block !important;` : ""}
 `;

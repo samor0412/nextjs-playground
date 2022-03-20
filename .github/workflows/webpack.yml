@@ -1,10 +1,10 @@
-name: NodeJS with Webpack
+name: Deploy
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [main]
+  # pull_request:
+  #   branches: [ main ]
 
 jobs:
   build:
@@ -12,17 +12,39 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
-    
+        node-version: [16.x]
+
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Build
-      run: |
-        npm install
-        npx webpack
+      - name: Build & Deploy
+        env:
+          INFINITY_FREE_FTP_USER_NAME: ${{ secrets.INFINITY_FREE_FTP_USER_NAME }}
+          INFINITY_FREE_FTP_PW: ${{ secrets.INFINITY_FREE_FTP_PW }}
+          INFINITY_FREE_HOST: ${{ secrets.INFINITY_FREE_HOST }}
+        run: |
+          yarn
+          yarn add -D webpack-cli
+          yarn build:export
+          mkdir htdocs/
+          cp -r ./out/* htdocs/
+
+      - name: FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ${{ secrets.INFINITY_FREE_HOST }}
+          username: ${{ secrets.INFINITY_FREE_FTP_USER_NAME }}
+          password: ${{ secrets.INFINITY_FREE_FTP_PW }}
+          protocol: ftps
+          local-dir: ./out/
+          server-dir: ./htdocs/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/out/**
+            **/.next/**

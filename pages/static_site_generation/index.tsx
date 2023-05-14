@@ -1,29 +1,40 @@
 import { MainContainer } from "components/common";
+import moment from "moment";
 import Head from "next/head";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { PageContainer, YellowNote, Tag1 } from "styles";
 
 interface Props {
-  currentTime: string;
+  lastBuildTime: string;
 }
 
 export async function getStaticProps() {
   return {
     props: {
-      currentTime: new Date().toISOString(),
+      lastBuildTime: moment().format('h:m:s'),
     },
   };
 }
 
-export default function Home({ currentTime }: Props) {
+export default function Home({ lastBuildTime }: Props) {
+  const [currentTime, setCurrentTime] = useState(moment().format('h:m:s'));
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(moment().format('h:m:s'))
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <MainContainer>
       <Head>
-        <title>Static Page Generator</title>
+        <title>Static Site Generation</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageContainer>
-        <h1>Static Page Generator</h1>
+        <h1>Static Site Generation (SSG)</h1>
         <p>
           Next.js has two forms of pre-rendering: Static Generation and
           Server-side Rendering. The difference is in when it generates the HTML
@@ -72,7 +83,8 @@ export default function Home({ currentTime }: Props) {
           <li>In production, getStaticProps runs at build time.</li>
         </ul>
         <p>
-          <Tag1>Current Time: {currentTime}</Tag1>
+          <Tag1>Current Time: {currentTime}</Tag1><br />
+          <Tag1>Last Build Time: {lastBuildTime}</Tag1>
         </p>
         <p>
           <YellowNote>

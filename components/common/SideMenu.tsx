@@ -33,6 +33,7 @@ const Nav = styled.div`
 `;
 
 const StyledNavItem = styled.div`
+  min-width: 200px;
   background-color: ${blue};
   color: #fff;
   padding: 6px 12px;
@@ -58,7 +59,7 @@ const StyledNavItem = styled.div`
   }
 `;
 
-const A = styled(Link)<{ href: string; pathname: string }>`
+const A = styled(Link) <{ href: string; pathname: string }>`
   ${({ href, pathname }) =>
     href === pathname ? `display: block !important;` : ""}
 `;
@@ -128,14 +129,17 @@ const SideMenu = () => {
         <Nav>
           {/* use <a> tag instead of <Link> tag because sw service worker cache api can't handle routing */}
           <NavItem href="/">Home</NavItem>
-          <NavItem href="/static_page_generation">
-            Static Page Generation
+          <NavItem href="/static_site_generation">
+            Static Site Generation
+          </NavItem>
+          <NavItem href="/incremental_static_site_regeneration">
+            Incremental Static Site Generation
           </NavItem>
           <NavItem href="/dynamic_import">Dynamic Import</NavItem>
-          <Expandable>
+          {/* <Expandable>
             <NavItem href="/service_worker">Service Worker</NavItem>
             <NavItem href="/service_worker/fetch_api">Fetch Api</NavItem>
-          </Expandable>
+          </Expandable> */}
           <NavItem href="/code_generator">Code Generator</NavItem>
           <NavItem href="/github_action">Git Action</NavItem>
         </Nav>

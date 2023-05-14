@@ -3,6 +3,11 @@ import styled from "styled-components";
 
 export const PageContainer = styled.div`
   margin: 20px 80px;
+
+  h1 {
+    font-size: 50px;
+    margin: 40px 0px;
+  }
 `;
 
 export const YellowNote = styled.div`
